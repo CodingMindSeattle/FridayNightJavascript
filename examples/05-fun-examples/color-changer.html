@@ -1,0 +1,201 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Color Changer Fun!</title>
+    <style>
+        body {
+            font-family: 'Comic Sans MS', Arial, sans-serif;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            min-height: 100vh;
+            margin: 0;
+            background: #4ecdc4;
+            transition: background 0.5s;
+        }
+        .container {
+            text-align: center;
+            background: white;
+            padding: 40px;
+            border-radius: 20px;
+            box-shadow: 0 10px 30px rgba(0,0,0,0.2);
+        }
+        h1 {
+            margin: 0 0 30px 0;
+            font-size: 36px;
+        }
+        button {
+            background: #ff6b6b;
+            color: white;
+            border: none;
+            padding: 15px 30px;
+            font-size: 18px;
+            border-radius: 30px;
+            cursor: pointer;
+            margin: 10px;
+            transition: all 0.3s;
+        }
+        button:hover {
+            transform: scale(1.1);
+            box-shadow: 0 5px 15px rgba(0,0,0,0.3);
+        }
+        .color-button {
+            width: 80px;
+            height: 80px;
+            border-radius: 50%;
+            font-size: 30px;
+        }
+        #colorDisplay {
+            font-size: 24px;
+            margin: 20px 0;
+            padding: 10px;
+            background: #f0f0f0;
+            border-radius: 10px;
+        }
+        .rainbow-text {
+            background: linear-gradient(45deg, red, orange, yellow, green, blue, indigo, violet);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            font-size: 48px;
+            font-weight: bold;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1 id="title">🎨 Color Changer!</h1>
+
+        <div id="colorDisplay">Current Color: <span id="currentColor">#4ecdc4</span></div>
+
+        <div>
+            <button class="color-button" style="background: #ff6b6b;" id="redBtn">🔴</button>
+            <button class="color-button" style="background: #4ecdc4;" id="blueBtn">🔵</button>
+            <button class="color-button" style="background: #ffd93d;" id="yellowBtn">🟡</button>
+            <button class="color-button" style="background: #95e77e;" id="greenBtn">🟢</button>
+            <button class="color-button" style="background: #b4a7d6;" id="purpleBtn">🟣</button>
+        </div>
+
+        <div style="margin-top: 30px;">
+            <button id="randomBtn">🎲 Random Color!</button>
+            <button id="rainbowBtn">🌈 Rainbow Mode!</button>
+            <button id="darkBtn">🌙 Dark Mode</button>
+            <button id="lightBtn">☀️ Light Mode</button>
+        </div>
+
+        <p style="margin-top: 30px;">Click Count: <span id="clickCount">0</span></p>
+    </div>
+
+    <script>
+        let body = document.body;
+        let currentColorDisplay = document.getElementById("currentColor");
+        let clickCount = 0;
+        let clickCountDisplay = document.getElementById("clickCount");
+        let title = document.getElementById("title");
+
+        // Helper function to update click count
+        function updateClickCount() {
+            clickCount++;
+            clickCountDisplay.textContent = clickCount;
+        }
+
+        // Color buttons
+        document.getElementById("redBtn").addEventListener("click", function() {
+            body.style.background = "#ff6b6b";
+            currentColorDisplay.textContent = "#ff6b6b";
+            updateClickCount();
+            console.log("Changed to red!");
+        });
+
+        document.getElementById("blueBtn").addEventListener("click", function() {
+            body.style.background = "#4ecdc4";
+            currentColorDisplay.textContent = "#4ecdc4";
+            updateClickCount();
+            console.log("Changed to blue!");
+        });
+
+        document.getElementById("yellowBtn").addEventListener("click", function() {
+            body.style.background = "#ffd93d";
+            currentColorDisplay.textContent = "#ffd93d";
+            updateClickCount();
+            console.log("Changed to yellow!");
+        });
+
+        document.getElementById("greenBtn").addEventListener("click", function() {
+            body.style.background = "#95e77e";
+            currentColorDisplay.textContent = "#95e77e";
+            updateClickCount();
+            console.log("Changed to green!");
+        });
+
+        document.getElementById("purpleBtn").addEventListener("click", function() {
+            body.style.background = "#b4a7d6";
+            currentColorDisplay.textContent = "#b4a7d6";
+            updateClickCount();
+            console.log("Changed to purple!");
+        });
+
+        // Random color button
+        document.getElementById("randomBtn").addEventListener("click", function() {
+            // Generate random RGB values
+            let r = Math.floor(Math.random() * 256);
+            let g = Math.floor(Math.random() * 256);
+            let b = Math.floor(Math.random() * 256);
+            let randomColor = "rgb(" + r + "," + g + "," + b + ")";
+
+            body.style.background = randomColor;
+            currentColorDisplay.textContent = randomColor;
+            updateClickCount();
+            console.log("Random color:", randomColor);
+        });
+
+        // Rainbow mode
+        let rainbowActive = false;
+        let rainbowInterval;
+
+        document.getElementById("rainbowBtn").addEventListener("click", function() {
+            if (!rainbowActive) {
+                rainbowActive = true;
+                title.className = "rainbow-text";
+                let hue = 0;
+
+                rainbowInterval = setInterval(function() {
+                    hue = (hue + 2) % 360;
+                    body.style.background = "hsl(" + hue + ", 70%, 60%)";
+                    currentColorDisplay.textContent = "Rainbow Mode!";
+                }, 50);
+
+                this.textContent = "⏹️ Stop Rainbow";
+                console.log("Rainbow mode activated!");
+            } else {
+                rainbowActive = false;
+                clearInterval(rainbowInterval);
+                title.className = "";
+                this.textContent = "🌈 Rainbow Mode!";
+                console.log("Rainbow mode stopped!");
+            }
+            updateClickCount();
+        });
+
+        // Dark mode
+        document.getElementById("darkBtn").addEventListener("click", function() {
+            body.style.background = "#1a1a1a";
+            currentColorDisplay.textContent = "Dark Mode";
+            updateClickCount();
+            console.log("Dark mode activated!");
+        });
+
+        // Light mode
+        document.getElementById("lightBtn").addEventListener("click", function() {
+            body.style.background = "#ffffff";
+            currentColorDisplay.textContent = "Light Mode";
+            updateClickCount();
+            console.log("Light mode activated!");
+        });
+
+        console.log("Color Changer ready! Click the buttons to change colors!");
+    </script>
+</body>
+</html>

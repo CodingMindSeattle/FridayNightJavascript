@@ -1,0 +1,63 @@
+/* Extra styles for customization - students can modify these! */
+
+/* Change the background gradient colors */
+.magical-theme {
+    background: linear-gradient(135deg, #ff6b6b 0%, #ffd93d 100%);
+}
+
+.forest-theme {
+    background: linear-gradient(135deg, #134e5e 0%, #71b280 100%);
+}
+
+.space-theme {
+    background: linear-gradient(135deg, #0f0c29 0%, #302b63 50%, #24243e 100%);
+}
+
+/* Special effects for important moments */
+.victory {
+    animation: celebrate 1s ease-in-out infinite;
+}
+
+@keyframes celebrate {
+    0%, 100% { transform: scale(1); }
+    50% { transform: scale(1.05); }
+}
+
+.danger {
+    animation: shake 0.5s;
+    border: 2px solid #ff6b6b;
+}
+
+@keyframes shake {
+    0%, 100% { transform: translateX(0); }
+    25% { transform: translateX(-10px); }
+    75% { transform: translateX(10px); }
+}
+
+/* Button styles for different types of choices */
+.good-choice {
+    background: #32cd32 !important;
+}
+
+.bad-choice {
+    background: #ff6b6b !important;
+}
+
+.neutral-choice {
+    background: #ffd93d !important;
+    color: #333 !important;
+}
+
+/* Inventory item styles */
+.inventory-item {
+    display: inline-block;
+    background: white;
+    padding: 5px 10px;
+    border-radius: 15px;
+    margin: 5px;
+}
+
+.magical-item {
+    background: linear-gradient(45deg, #667eea, #764ba2);
+    color: white;
+}

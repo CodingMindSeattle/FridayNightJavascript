@@ -1,0 +1,77 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Cookie Clicker Game</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+    <div class="game-container">
+        <h1>🍪 Cookie Clicker 🍪</h1>
+
+        <div class="score-section">
+            <div class="score-display">
+                <span class="score-label">Cookies:</span>
+                <span id="score">0</span>
+            </div>
+            <div class="per-second">
+                <span id="perSecond">0</span> cookies/second
+            </div>
+        </div>
+
+        <div class="cookie-section">
+            <button id="cookieBtn" class="cookie-button">🍪</button>
+            <div id="clickPower">Click Power: <span id="clickPowerNum">1</span></div>
+        </div>
+
+        <div class="upgrades-section">
+            <h2>Upgrades</h2>
+
+            <div class="upgrade-item">
+                <button id="upgradeClick" class="upgrade-btn">
+                    <div class="upgrade-title">Better Oven</div>
+                    <div class="upgrade-desc">+1 click power</div>
+                    <div class="upgrade-cost">Cost: <span id="clickCost">10</span> 🍪</div>
+                </button>
+            </div>
+
+            <div class="upgrade-item">
+                <button id="upgradeAuto" class="upgrade-btn">
+                    <div class="upgrade-title">Grandma</div>
+                    <div class="upgrade-desc">+1 cookie/second</div>
+                    <div class="upgrade-cost">Cost: <span id="autoCost">50</span> 🍪</div>
+                </button>
+            </div>
+
+            <div class="upgrade-item">
+                <button id="upgradeFactory" class="upgrade-btn">
+                    <div class="upgrade-title">Cookie Factory</div>
+                    <div class="upgrade-desc">+5 cookies/second</div>
+                    <div class="upgrade-cost">Cost: <span id="factoryCost">200</span> 🍪</div>
+                </button>
+            </div>
+
+            <div class="upgrade-item">
+                <button id="upgradeMega" class="upgrade-btn" style="display: none;">
+                    <div class="upgrade-title">Mega Bakery</div>
+                    <div class="upgrade-desc">+20 cookies/second</div>
+                    <div class="upgrade-cost">Cost: <span id="megaCost">1000</span> 🍪</div>
+                </button>
+            </div>
+        </div>
+
+        <div class="stats-section">
+            <h3>Statistics</h3>
+            <p>Total Clicks: <span id="totalClicks">0</span></p>
+            <p>Grandmas: <span id="grandmaCount">0</span></p>
+            <p>Factories: <span id="factoryCount">0</span></p>
+            <p>Total Cookies Earned: <span id="totalEarned">0</span></p>
+        </div>
+
+        <button id="resetBtn" class="reset-btn">Reset Game</button>
+    </div>
+
+    <script src="script-starter.js"></script>
+</body>
+</html>

@@ -1,0 +1,121 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>My First JavaScript Project</title>
+    <style>
+        body {
+            font-family: 'Comic Sans MS', Arial, sans-serif;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            min-height: 100vh;
+            margin: 0;
+            background: linear-gradient(135deg, #ff6b6b, #4ecdc4);
+        }
+        .container {
+            background: white;
+            padding: 40px;
+            border-radius: 20px;
+            box-shadow: 0 10px 30px rgba(0,0,0,0.2);
+            text-align: center;
+            max-width: 500px;
+            width: 90%;
+        }
+        h1 {
+            color: #333;
+            margin-bottom: 30px;
+        }
+        #message {
+            font-size: 24px;
+            margin: 30px 0;
+            padding: 20px;
+            background: #f0f0f0;
+            border-radius: 10px;
+            min-height: 60px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+        button {
+            background: linear-gradient(45deg, #ff6b6b, #4ecdc4);
+            color: white;
+            border: none;
+            padding: 20px 40px;
+            font-size: 20px;
+            border-radius: 30px;
+            cursor: pointer;
+            margin: 10px;
+            transition: all 0.3s;
+        }
+        button:hover {
+            transform: scale(1.1);
+            box-shadow: 0 5px 15px rgba(0,0,0,0.3);
+        }
+        .big-button {
+            font-size: 60px;
+            padding: 30px;
+            border-radius: 50%;
+            width: 150px;
+            height: 150px;
+        }
+        #counter {
+            font-size: 48px;
+            font-weight: bold;
+            color: #ff6b6b;
+            margin: 20px 0;
+        }
+        .fun-buttons {
+            margin-top: 30px;
+        }
+        .fun-buttons button {
+            font-size: 16px;
+            padding: 15px 25px;
+        }
+        input[type="text"] {
+            padding: 15px;
+            font-size: 18px;
+            border: 3px solid #4ecdc4;
+            border-radius: 10px;
+            margin: 10px;
+            width: 200px;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1>🌟 My First JavaScript Project! 🌟</h1>
+
+        <!-- Step 1: Simple message -->
+        <div id="message">Click the button below!</div>
+
+        <!-- Step 2: Main button -->
+        <button id="mainButton" class="big-button">😊</button>
+
+        <!-- Step 3: Counter -->
+        <div id="counter">0</div>
+
+        <!-- Step 4: Fun buttons -->
+        <div class="fun-buttons">
+            <button id="colorBtn">Change Colors!</button>
+            <button id="resetBtn">Reset</button>
+            <button id="surpriseBtn">Surprise Me!</button>
+        </div>
+
+        <!-- Step 5: Name input -->
+        <div style="margin-top: 30px;">
+            <input type="text" id="nameInput" placeholder="Enter your name...">
+            <button id="greetBtn">Say Hello!</button>
+        </div>
+
+        <!-- Step 6: Special message area -->
+        <div id="specialMessage" style="margin-top: 20px; font-size: 18px; color: #666;">
+            Welcome! Let's learn JavaScript together!
+        </div>
+    </div>
+
+    <script src="script-starter.js"></script>
+</body>
+</html>

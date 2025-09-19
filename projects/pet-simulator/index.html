@@ -1,0 +1,82 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Virtual Pet Simulator</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+    <div class="game-container">
+        <h1>🐾 My Virtual Pet 🐾</h1>
+
+        <div class="pet-name-section">
+            <input type="text" id="petNameInput" placeholder="Name your pet...">
+            <button id="nameBtn">Set Name</button>
+            <h2 id="petNameDisplay">???</h2>
+        </div>
+
+        <div class="pet-display">
+            <div id="petEmoji" class="pet">🐶</div>
+            <div id="petMood">Happy</div>
+        </div>
+
+        <div class="stats-container">
+            <div class="stat-bar">
+                <label>Hunger</label>
+                <div class="bar-background">
+                    <div id="hungerBar" class="bar hunger-bar"></div>
+                </div>
+                <span id="hungerValue">50/100</span>
+            </div>
+
+            <div class="stat-bar">
+                <label>Happiness</label>
+                <div class="bar-background">
+                    <div id="happinessBar" class="bar happiness-bar"></div>
+                </div>
+                <span id="happinessValue">50/100</span>
+            </div>
+
+            <div class="stat-bar">
+                <label>Energy</label>
+                <div class="bar-background">
+                    <div id="energyBar" class="bar energy-bar"></div>
+                </div>
+                <span id="energyValue">50/100</span>
+            </div>
+
+            <div class="stat-bar">
+                <label>Health</label>
+                <div class="bar-background">
+                    <div id="healthBar" class="bar health-bar"></div>
+                </div>
+                <span id="healthValue">100/100</span>
+            </div>
+        </div>
+
+        <div class="action-buttons">
+            <button id="feedBtn" class="action-btn">🍖 Feed</button>
+            <button id="playBtn" class="action-btn">🎾 Play</button>
+            <button id="sleepBtn" class="action-btn">😴 Sleep</button>
+            <button id="petBtn" class="action-btn">🤚 Pet</button>
+            <button id="treatBtn" class="action-btn">🍪 Treat</button>
+            <button id="medicineBtn" class="action-btn" style="display:none;">💊 Medicine</button>
+        </div>
+
+        <div class="info-section">
+            <h3>Pet Info</h3>
+            <p>Age: <span id="petAge">0</span> minutes</p>
+            <p>Level: <span id="petLevel">1</span></p>
+            <p>Experience: <span id="petExp">0/100</span></p>
+            <p>Coins: <span id="coins">0</span> 🪙</p>
+        </div>
+
+        <div class="message-box" id="messageBox">
+            Welcome! Take care of your virtual pet!
+        </div>
+    </div>
+
+    <script src="script-starter.js"></script>
+</body>
+</html>

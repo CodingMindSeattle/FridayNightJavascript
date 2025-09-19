@@ -1,0 +1,151 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Interactive Adventure Story</title>
+    <style>
+        body {
+            font-family: 'Georgia', serif;
+            max-width: 800px;
+            margin: 40px auto;
+            padding: 20px;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            min-height: 100vh;
+        }
+        .story-container {
+            background: white;
+            padding: 40px;
+            border-radius: 20px;
+            box-shadow: 0 10px 30px rgba(0,0,0,0.2);
+        }
+        h1 {
+            text-align: center;
+            color: #333;
+            font-size: 36px;
+            margin-bottom: 30px;
+        }
+        #storyText {
+            font-size: 20px;
+            line-height: 1.6;
+            color: #444;
+            margin-bottom: 30px;
+            padding: 20px;
+            background: #f8f9fa;
+            border-radius: 10px;
+            min-height: 150px;
+        }
+        #characterName {
+            font-weight: bold;
+            color: #667eea;
+        }
+        .choices {
+            display: flex;
+            flex-direction: column;
+            gap: 15px;
+        }
+        button {
+            background: #667eea;
+            color: white;
+            border: none;
+            padding: 15px 25px;
+            font-size: 18px;
+            border-radius: 10px;
+            cursor: pointer;
+            transition: all 0.3s;
+            text-align: left;
+        }
+        button:hover {
+            background: #764ba2;
+            transform: translateX(10px);
+        }
+        #nameSetup {
+            text-align: center;
+            padding: 30px;
+        }
+        #nameInput {
+            padding: 12px;
+            font-size: 18px;
+            border: 2px solid #667eea;
+            border-radius: 5px;
+            width: 250px;
+            margin-right: 10px;
+        }
+        #startBtn {
+            background: #4ecdc4;
+            padding: 12px 30px;
+        }
+        #startBtn:hover {
+            background: #3eb8b0;
+            transform: scale(1.05);
+        }
+        #inventory {
+            margin-top: 30px;
+            padding: 15px;
+            background: #fff3cd;
+            border-radius: 10px;
+            border-left: 4px solid #ffc107;
+        }
+        #inventoryList {
+            margin-top: 10px;
+            font-style: italic;
+        }
+        #restartBtn {
+            background: #ff6b6b;
+            margin-top: 20px;
+        }
+        #restartBtn:hover {
+            background: #ff5252;
+        }
+        .hidden {
+            display: none;
+        }
+        #scoreDisplay {
+            position: absolute;
+            top: 20px;
+            right: 20px;
+            background: #ffd93d;
+            padding: 10px 20px;
+            border-radius: 20px;
+            font-weight: bold;
+        }
+    </style>
+</head>
+<body>
+    <div id="scoreDisplay" class="hidden">Score: <span id="score">0</span></div>
+
+    <div class="story-container">
+        <h1>🌟 The Magical Adventure 🌟</h1>
+
+        <!-- Name Setup Screen -->
+        <div id="nameSetup">
+            <h2>Welcome, brave adventurer!</h2>
+            <p>What is your name?</p>
+            <input type="text" id="nameInput" placeholder="Enter your name...">
+            <button id="startBtn">Begin Adventure!</button>
+        </div>
+
+        <!-- Main Story Screen -->
+        <div id="storyScreen" class="hidden">
+            <div id="storyText">
+                Your adventure begins...
+            </div>
+
+            <div class="choices" id="choiceButtons">
+                <button id="choice1">Choice 1</button>
+                <button id="choice2">Choice 2</button>
+                <button id="choice3" class="hidden">Choice 3</button>
+            </div>
+
+            <div id="inventory" class="hidden">
+                <strong>🎒 Your Inventory:</strong>
+                <div id="inventoryList">Nothing yet...</div>
+            </div>
+
+            <button id="restartBtn" class="hidden">Start Over</button>
+        </div>
+    </div>
+
+    <script src="script-starter.js"></script>
+</body>
+</html>

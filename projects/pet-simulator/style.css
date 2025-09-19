@@ -1,0 +1,199 @@
+body {
+    font-family: 'Comic Sans MS', Arial, sans-serif;
+    margin: 0;
+    padding: 0;
+    background: linear-gradient(135deg, #667eea, #764ba2);
+    min-height: 100vh;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.game-container {
+    background: white;
+    padding: 30px;
+    border-radius: 20px;
+    box-shadow: 0 10px 30px rgba(0,0,0,0.3);
+    max-width: 600px;
+    width: 90%;
+}
+
+h1 {
+    text-align: center;
+    color: #667eea;
+    margin-bottom: 20px;
+}
+
+.pet-name-section {
+    text-align: center;
+    margin-bottom: 20px;
+}
+
+#petNameInput {
+    padding: 10px;
+    font-size: 16px;
+    border: 2px solid #667eea;
+    border-radius: 5px;
+    margin-right: 10px;
+}
+
+#nameBtn {
+    padding: 10px 20px;
+    background: #667eea;
+    color: white;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+}
+
+#petNameDisplay {
+    color: #764ba2;
+    margin: 10px 0;
+}
+
+.pet-display {
+    text-align: center;
+    margin: 30px 0;
+}
+
+.pet {
+    font-size: 100px;
+    animation: bounce 2s infinite;
+}
+
+@keyframes bounce {
+    0%, 100% { transform: translateY(0); }
+    50% { transform: translateY(-20px); }
+}
+
+.pet.sleeping {
+    animation: sleep 3s infinite;
+}
+
+@keyframes sleep {
+    0%, 100% { transform: scale(1); }
+    50% { transform: scale(0.9); }
+}
+
+.pet.playing {
+    animation: play 0.5s infinite;
+}
+
+@keyframes play {
+    0% { transform: rotate(0deg); }
+    25% { transform: rotate(-10deg); }
+    75% { transform: rotate(10deg); }
+    100% { transform: rotate(0deg); }
+}
+
+#petMood {
+    font-size: 18px;
+    color: #666;
+    margin-top: 10px;
+}
+
+.stats-container {
+    margin: 30px 0;
+}
+
+.stat-bar {
+    margin: 15px 0;
+    display: flex;
+    align-items: center;
+    gap: 10px;
+}
+
+.stat-bar label {
+    width: 80px;
+    font-weight: bold;
+}
+
+.bar-background {
+    flex: 1;
+    height: 25px;
+    background: #e0e0e0;
+    border-radius: 15px;
+    overflow: hidden;
+    position: relative;
+}
+
+.bar {
+    height: 100%;
+    transition: width 0.5s;
+    border-radius: 15px;
+}
+
+.hunger-bar {
+    background: linear-gradient(90deg, #ff6b6b, #ff8e8e);
+    width: 50%;
+}
+
+.happiness-bar {
+    background: linear-gradient(90deg, #ffd93d, #ffe066);
+    width: 50%;
+}
+
+.energy-bar {
+    background: linear-gradient(90deg, #4ecdc4, #71d7cf);
+    width: 50%;
+}
+
+.health-bar {
+    background: linear-gradient(90deg, #32cd32, #50d850);
+    width: 100%;
+}
+
+.action-buttons {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 10px;
+    justify-content: center;
+    margin: 30px 0;
+}
+
+.action-btn {
+    padding: 15px 25px;
+    font-size: 18px;
+    background: linear-gradient(135deg, #667eea, #764ba2);
+    color: white;
+    border: none;
+    border-radius: 10px;
+    cursor: pointer;
+    transition: all 0.3s;
+}
+
+.action-btn:hover {
+    transform: translateY(-3px);
+    box-shadow: 0 5px 15px rgba(0,0,0,0.2);
+}
+
+.action-btn:disabled {
+    background: #ccc;
+    cursor: not-allowed;
+    transform: none;
+}
+
+.info-section {
+    background: #f8f9fa;
+    padding: 20px;
+    border-radius: 10px;
+    margin: 20px 0;
+}
+
+.info-section h3 {
+    margin-top: 0;
+    color: #667eea;
+}
+
+.info-section p {
+    margin: 10px 0;
+}
+
+.message-box {
+    background: #e8f4f8;
+    padding: 15px;
+    border-radius: 10px;
+    text-align: center;
+    color: #333;
+    border-left: 4px solid #667eea;
+}

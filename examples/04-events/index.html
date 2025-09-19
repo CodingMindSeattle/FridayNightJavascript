@@ -1,0 +1,226 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Events - Making Things Interactive!</title>
+    <style>
+        body {
+            font-family: 'Arial', sans-serif;
+            max-width: 900px;
+            margin: 30px auto;
+            padding: 20px;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            min-height: 100vh;
+        }
+        h1 {
+            text-align: center;
+            color: white;
+            text-shadow: 2px 2px 4px rgba(0,0,0,0.3);
+        }
+        .event-demo {
+            background: white;
+            padding: 25px;
+            margin: 20px 0;
+            border-radius: 15px;
+            box-shadow: 0 5px 15px rgba(0,0,0,0.2);
+        }
+        .event-demo h2 {
+            color: #667eea;
+            margin-top: 0;
+        }
+        button {
+            background: #667eea;
+            color: white;
+            border: none;
+            padding: 12px 24px;
+            border-radius: 25px;
+            cursor: pointer;
+            font-size: 16px;
+            margin: 5px;
+            transition: all 0.3s;
+        }
+        button:hover {
+            background: #764ba2;
+            transform: translateY(-2px);
+            box-shadow: 0 5px 10px rgba(0,0,0,0.2);
+        }
+        button:active {
+            transform: translateY(0);
+        }
+        .click-counter {
+            display: inline-block;
+            background: #ffd93d;
+            padding: 10px 20px;
+            border-radius: 20px;
+            font-size: 20px;
+            font-weight: bold;
+            margin: 10px;
+        }
+        .hover-box {
+            width: 250px;
+            height: 100px;
+            background: #ff6b6b;
+            color: white;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            border-radius: 10px;
+            margin: 20px auto;
+            font-size: 18px;
+            transition: all 0.3s;
+            cursor: pointer;
+        }
+        input[type="text"], input[type="number"] {
+            padding: 10px;
+            font-size: 16px;
+            border: 2px solid #667eea;
+            border-radius: 5px;
+            width: 200px;
+            margin: 5px;
+        }
+        .output {
+            background: #f0f0f0;
+            padding: 15px;
+            border-radius: 8px;
+            margin: 10px 0;
+            min-height: 30px;
+        }
+        .key-display {
+            display: inline-block;
+            background: #4ecdc4;
+            color: white;
+            padding: 20px;
+            border-radius: 10px;
+            font-size: 24px;
+            margin: 10px;
+            min-width: 100px;
+            text-align: center;
+        }
+        #drawing-area {
+            width: 100%;
+            height: 200px;
+            border: 3px dashed #667eea;
+            border-radius: 10px;
+            position: relative;
+            overflow: hidden;
+            background: white;
+            cursor: crosshair;
+        }
+        .dot {
+            width: 10px;
+            height: 10px;
+            background: #ff6b6b;
+            border-radius: 50%;
+            position: absolute;
+            transform: translate(-50%, -50%);
+        }
+        .double-click-box {
+            width: 200px;
+            height: 200px;
+            background: #b4a7d6;
+            margin: 20px auto;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            border-radius: 10px;
+            color: white;
+            font-size: 18px;
+            transition: all 0.3s;
+            cursor: pointer;
+        }
+        .game-button {
+            width: 100px;
+            height: 100px;
+            margin: 10px;
+            font-size: 30px;
+            border-radius: 10px;
+        }
+    </style>
+</head>
+<body>
+    <h1>🎮 Events Playground - Make Things Happen!</h1>
+
+    <!-- Click Events -->
+    <div class="event-demo">
+        <h2>🖱️ Click Events</h2>
+        <p>Click the buttons to see different things happen!</p>
+
+        <button id="singleClick">Click Me!</button>
+        <span class="click-counter">Clicks: <span id="clickCount">0</span></span>
+
+        <button id="resetCounter">Reset Counter</button>
+        <button id="add10">Add 10!</button>
+    </div>
+
+    <!-- Double Click -->
+    <div class="event-demo">
+        <h2>🖱️🖱️ Double Click Event</h2>
+        <div class="double-click-box" id="doubleClickBox">
+            Double-click me!
+        </div>
+    </div>
+
+    <!-- Hover Events -->
+    <div class="event-demo">
+        <h2>✨ Hover Events (Mouse Over/Out)</h2>
+        <div class="hover-box" id="hoverBox">
+            Hover over me!
+        </div>
+        <p>Hover count: <span id="hoverCount">0</span></p>
+    </div>
+
+    <!-- Input Events -->
+    <div class="event-demo">
+        <h2>⌨️ Input Events</h2>
+        <p>Type something and watch it appear live!</p>
+        <input type="text" id="liveInput" placeholder="Type something...">
+        <div class="output">
+            You typed: <strong id="liveOutput">nothing yet</strong>
+        </div>
+
+        <p>Type a number to see it squared:</p>
+        <input type="number" id="numberInput" placeholder="Enter a number">
+        <div class="output">
+            Square: <strong id="squareOutput">?</strong>
+        </div>
+    </div>
+
+    <!-- Keyboard Events -->
+    <div class="event-demo">
+        <h2>⌨️ Keyboard Events</h2>
+        <p>Click here first, then press any key!</p>
+        <input type="text" id="keyInput" placeholder="Click here and press keys">
+        <div>
+            <div class="key-display">Key: <span id="keyPressed">?</span></div>
+            <div class="key-display">Code: <span id="keyCode">?</span></div>
+        </div>
+    </div>
+
+    <!-- Mouse Position -->
+    <div class="event-demo">
+        <h2>📍 Mouse Click Position</h2>
+        <p>Click anywhere in the box to draw dots!</p>
+        <div id="drawing-area"></div>
+        <button id="clearDrawing">Clear Drawing</button>
+    </div>
+
+    <!-- Fun Mini Game -->
+    <div class="event-demo">
+        <h2>🎮 Quick Reaction Game!</h2>
+        <p>Click the right color as fast as you can!</p>
+        <p>Target: <span id="targetColor" style="font-weight: bold; font-size: 20px;">RED</span></p>
+        <div>
+            <button class="game-button" id="redGameBtn" style="background: #ff6b6b;">🔴</button>
+            <button class="game-button" id="blueGameBtn" style="background: #4169e1;">🔵</button>
+            <button class="game-button" id="greenGameBtn" style="background: #32cd32;">🟢</button>
+        </div>
+        <div class="output">
+            Score: <strong id="gameScore">0</strong> |
+            Mistakes: <strong id="gameMistakes">0</strong>
+        </div>
+    </div>
+
+    <script src="script.js"></script>
+</body>
+</html>

@@ -1,0 +1,372 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Name Greeter!</title>
+    <style>
+        body {
+            font-family: 'Comic Sans MS', Arial, sans-serif;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            min-height: 100vh;
+            margin: 0;
+            background: linear-gradient(135deg, #ff6b6b, #4ecdc4);
+            overflow: hidden;
+        }
+        .container {
+            background: white;
+            padding: 40px;
+            border-radius: 20px;
+            box-shadow: 0 15px 35px rgba(0,0,0,0.2);
+            text-align: center;
+            max-width: 500px;
+            width: 90%;
+        }
+        h1 {
+            color: #333;
+            font-size: 36px;
+            margin-bottom: 30px;
+        }
+        input[type="text"] {
+            width: 100%;
+            padding: 15px;
+            font-size: 18px;
+            border: 3px solid #4ecdc4;
+            border-radius: 10px;
+            margin-bottom: 20px;
+            box-sizing: border-box;
+        }
+        input[type="text"]:focus {
+            outline: none;
+            border-color: #ff6b6b;
+        }
+        button {
+            background: linear-gradient(45deg, #ff6b6b, #4ecdc4);
+            color: white;
+            border: none;
+            padding: 15px 30px;
+            font-size: 18px;
+            border-radius: 30px;
+            cursor: pointer;
+            margin: 5px;
+            transition: all 0.3s;
+        }
+        button:hover {
+            transform: scale(1.05);
+            box-shadow: 0 5px 15px rgba(0,0,0,0.3);
+        }
+        #greeting {
+            font-size: 28px;
+            margin: 30px 0;
+            padding: 20px;
+            border-radius: 15px;
+            background: #f8f9fa;
+            min-height: 60px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            transition: all 0.5s;
+        }
+        #greeting.special {
+            background: linear-gradient(45deg, #ffd93d, #ff6b6b);
+            color: white;
+            animation: pulse 1s infinite;
+        }
+        @keyframes pulse {
+            0% { transform: scale(1); }
+            50% { transform: scale(1.05); }
+            100% { transform: scale(1); }
+        }
+        .emoji-buttons {
+            margin: 20px 0;
+        }
+        .emoji-btn {
+            background: white;
+            border: 3px solid #4ecdc4;
+            font-size: 30px;
+            width: 60px;
+            height: 60px;
+            border-radius: 50%;
+            cursor: pointer;
+            margin: 5px;
+            transition: all 0.3s;
+        }
+        .emoji-btn:hover {
+            background: #4ecdc4;
+            transform: rotate(20deg);
+        }
+        #nameHistory {
+            margin-top: 30px;
+            padding: 20px;
+            background: #e8f4f8;
+            border-radius: 10px;
+            max-height: 150px;
+            overflow-y: auto;
+        }
+        #nameHistory h3 {
+            margin-top: 0;
+            color: #667eea;
+        }
+        .history-item {
+            padding: 5px;
+            margin: 5px 0;
+            background: white;
+            border-radius: 5px;
+        }
+        select {
+            padding: 10px;
+            font-size: 16px;
+            border: 2px solid #4ecdc4;
+            border-radius: 5px;
+            margin: 10px;
+        }
+        .floating-emoji {
+            position: absolute;
+            font-size: 30px;
+            animation: float 4s ease-in-out infinite;
+            pointer-events: none;
+        }
+        @keyframes float {
+            0%, 100% { transform: translateY(0) rotate(0deg); }
+            50% { transform: translateY(-20px) rotate(180deg); }
+        }
+    </style>
+</head>
+<body>
+    <div class="floating-emoji" style="top: 10%; left: 10%;">✨</div>
+    <div class="floating-emoji" style="top: 20%; right: 15%; animation-delay: 1s;">🌟</div>
+    <div class="floating-emoji" style="bottom: 20%; left: 5%; animation-delay: 2s;">💫</div>
+    <div class="floating-emoji" style="bottom: 10%; right: 10%; animation-delay: 3s;">⭐</div>
+
+    <div class="container">
+        <h1>👋 Name Greeter!</h1>
+
+        <input type="text" id="nameInput" placeholder="Enter your name...">
+
+        <div>
+            <button id="greetBtn">Greet Me!</button>
+            <button id="shoutBtn">SHOUT MY NAME!</button>
+            <button id="formalBtn">Formal Greeting</button>
+        </div>
+
+        <div id="greeting">Hello! Enter your name above!</div>
+
+        <div class="emoji-buttons">
+            <p>Add some style to your greeting:</p>
+            <button class="emoji-btn" id="happyEmoji">😊</button>
+            <button class="emoji-btn" id="coolEmoji">😎</button>
+            <button class="emoji-btn" id="starEmoji">⭐</button>
+            <button class="emoji-btn" id="heartEmoji">❤️</button>
+            <button class="emoji-btn" id="fireEmoji">🔥</button>
+        </div>
+
+        <div>
+            <label>Language: </label>
+            <select id="languageSelect">
+                <option value="english">English</option>
+                <option value="spanish">Spanish</option>
+                <option value="french">French</option>
+                <option value="japanese">Japanese</option>
+                <option value="emoji">Emoji Only!</option>
+            </select>
+        </div>
+
+        <button id="clearBtn">Clear All</button>
+        <button id="surpriseBtn">Surprise Me!</button>
+
+        <div id="nameHistory">
+            <h3>Name History</h3>
+            <div id="historyList"></div>
+        </div>
+    </div>
+
+    <script>
+        let nameInput = document.getElementById("nameInput");
+        let greeting = document.getElementById("greeting");
+        let historyList = document.getElementById("historyList");
+        let nameHistory = [];
+        let currentEmoji = "";
+
+        // Greeting functions for different languages
+        let greetings = {
+            english: {
+                hello: "Hello",
+                welcome: "Welcome",
+                nice: "Nice to meet you"
+            },
+            spanish: {
+                hello: "¡Hola",
+                welcome: "Bienvenido",
+                nice: "Mucho gusto"
+            },
+            french: {
+                hello: "Bonjour",
+                welcome: "Bienvenue",
+                nice: "Enchanté"
+            },
+            japanese: {
+                hello: "こんにちは",
+                welcome: "ようこそ",
+                nice: "はじめまして"
+            },
+            emoji: {
+                hello: "👋",
+                welcome: "🎉",
+                nice: "😊"
+            }
+        };
+
+        // Basic greet function
+        document.getElementById("greetBtn").addEventListener("click", function() {
+            let name = nameInput.value.trim();
+            let language = document.getElementById("languageSelect").value;
+
+            if (name === "") {
+                greeting.textContent = "Please enter your name first! 😊";
+                greeting.classList.remove("special");
+            } else {
+                let greetText = greetings[language].hello + ", " + name + "! " + currentEmoji;
+                greeting.textContent = greetText;
+                greeting.classList.remove("special");
+                addToHistory(name);
+                console.log("Greeted:", name);
+            }
+        });
+
+        // Shout greeting
+        document.getElementById("shoutBtn").addEventListener("click", function() {
+            let name = nameInput.value.trim();
+
+            if (name === "") {
+                greeting.textContent = "WHAT'S YOUR NAME?! 📢";
+                greeting.classList.add("special");
+            } else {
+                greeting.textContent = "HEY " + name.toUpperCase() + "! YOU'RE AWESOME! 🎉🎊🎈";
+                greeting.classList.add("special");
+                addToHistory(name);
+                console.log("Shouted to:", name);
+            }
+        });
+
+        // Formal greeting
+        document.getElementById("formalBtn").addEventListener("click", function() {
+            let name = nameInput.value.trim();
+            let language = document.getElementById("languageSelect").value;
+
+            if (name === "") {
+                greeting.textContent = "I would be delighted to know your name.";
+                greeting.classList.remove("special");
+            } else {
+                let greetText = greetings[language].nice + ", " + name + ". " + greetings[language].welcome + "!";
+                greeting.textContent = greetText;
+                greeting.classList.remove("special");
+                addToHistory(name);
+                console.log("Formal greeting for:", name);
+            }
+        });
+
+        // Emoji buttons
+        document.getElementById("happyEmoji").addEventListener("click", function() {
+            currentEmoji = "😊";
+            updateGreetingWithEmoji();
+        });
+
+        document.getElementById("coolEmoji").addEventListener("click", function() {
+            currentEmoji = "😎";
+            updateGreetingWithEmoji();
+        });
+
+        document.getElementById("starEmoji").addEventListener("click", function() {
+            currentEmoji = "⭐";
+            updateGreetingWithEmoji();
+        });
+
+        document.getElementById("heartEmoji").addEventListener("click", function() {
+            currentEmoji = "❤️";
+            updateGreetingWithEmoji();
+        });
+
+        document.getElementById("fireEmoji").addEventListener("click", function() {
+            currentEmoji = "🔥";
+            updateGreetingWithEmoji();
+        });
+
+        // Update greeting with selected emoji
+        function updateGreetingWithEmoji() {
+            if (!greeting.textContent.includes("Enter your name")) {
+                greeting.textContent = greeting.textContent.replace(/[😊😎⭐❤️🔥]/g, "") + " " + currentEmoji;
+            }
+        }
+
+        // Clear button
+        document.getElementById("clearBtn").addEventListener("click", function() {
+            nameInput.value = "";
+            greeting.textContent = "Hello! Enter your name above!";
+            greeting.classList.remove("special");
+            currentEmoji = "";
+            console.log("Cleared everything!");
+        });
+
+        // Surprise button
+        document.getElementById("surpriseBtn").addEventListener("click", function() {
+            let name = nameInput.value.trim() || "Friend";
+            let surprises = [
+                name + " is the coolest person ever! 😎",
+                "🌟 " + name + " shines brighter than the stars! 🌟",
+                "Breaking news: " + name + " is AMAZING! 📰",
+                name + ", you're one in a million! 💎",
+                "🎊 Party time for " + name + "! 🎊",
+                name + " = Legendary! 🦄",
+                "Alert: " + name + " detected! Awesomeness level: MAX! 📈"
+            ];
+
+            let randomSurprise = surprises[Math.floor(Math.random() * surprises.length)];
+            greeting.textContent = randomSurprise;
+            greeting.classList.add("special");
+
+            if (name !== "Friend") {
+                addToHistory(name);
+            }
+            console.log("Surprise greeting!");
+        });
+
+        // Add name to history
+        function addToHistory(name) {
+            if (!nameHistory.includes(name)) {
+                nameHistory.push(name);
+                let historyItem = document.createElement("div");
+                historyItem.className = "history-item";
+                historyItem.textContent = name;
+                historyList.appendChild(historyItem);
+
+                // Keep only last 5 names
+                if (nameHistory.length > 5) {
+                    nameHistory.shift();
+                    historyList.removeChild(historyList.firstChild);
+                }
+            }
+        }
+
+        // Enter key support
+        nameInput.addEventListener("keypress", function(event) {
+            if (event.key === "Enter") {
+                document.getElementById("greetBtn").click();
+            }
+        });
+
+        // Fun: Change background on name input
+        nameInput.addEventListener("input", function() {
+            if (this.value.length > 0) {
+                this.style.borderColor = "#ff6b6b";
+            } else {
+                this.style.borderColor = "#4ecdc4";
+            }
+        });
+
+        console.log("Name Greeter ready! Type your name and click a button!");
+        console.log("Try the different greeting styles and languages!");
+    </script>
+</body>
+</html>

@@ -1,0 +1,175 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>DOM Manipulation Basics</title>
+    <style>
+        body {
+            font-family: 'Comic Sans MS', Arial, sans-serif;
+            max-width: 800px;
+            margin: 40px auto;
+            padding: 20px;
+            background: #f5f5f5;
+        }
+        h1 {
+            text-align: center;
+            color: #333;
+            background: linear-gradient(45deg, #ff6b6b, #4ecdc4);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            font-size: 36px;
+        }
+        .demo-box {
+            background: white;
+            padding: 25px;
+            margin: 20px 0;
+            border-radius: 10px;
+            box-shadow: 0 3px 10px rgba(0,0,0,0.1);
+        }
+        .demo-box h2 {
+            color: #4ecdc4;
+            margin-top: 0;
+        }
+        button {
+            background: #4ecdc4;
+            color: white;
+            border: none;
+            padding: 10px 20px;
+            border-radius: 25px;
+            cursor: pointer;
+            font-size: 16px;
+            margin: 5px;
+            transition: all 0.3s;
+        }
+        button:hover {
+            background: #ff6b6b;
+            transform: scale(1.05);
+        }
+        #colorBox {
+            width: 200px;
+            height: 200px;
+            background: #4ecdc4;
+            margin: 20px auto;
+            border-radius: 10px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: white;
+            font-size: 20px;
+            transition: all 0.3s;
+        }
+        #textDisplay {
+            font-size: 24px;
+            color: #333;
+            padding: 20px;
+            background: #ffd93d;
+            border-radius: 10px;
+            text-align: center;
+            margin: 20px 0;
+        }
+        input[type="text"] {
+            padding: 10px;
+            font-size: 16px;
+            border: 2px solid #4ecdc4;
+            border-radius: 5px;
+            width: 200px;
+        }
+        #sizeDemo {
+            background: #ff6b6b;
+            color: white;
+            padding: 20px;
+            border-radius: 10px;
+            text-align: center;
+            font-size: 16px;
+            transition: all 0.3s;
+        }
+        .hidden {
+            display: none;
+        }
+        #mouseBox {
+            width: 300px;
+            height: 100px;
+            background: #b4a7d6;
+            margin: 20px auto;
+            border-radius: 10px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: white;
+            font-size: 18px;
+            transition: all 0.3s;
+        }
+        .instruction {
+            background: #e8f4f8;
+            padding: 15px;
+            border-left: 4px solid #2196F3;
+            margin: 15px 0;
+            border-radius: 5px;
+        }
+    </style>
+</head>
+<body>
+    <h1>🎨 DOM Manipulation Playground</h1>
+
+    <!-- Demo 1: Changing Text -->
+    <div class="demo-box">
+        <h2>1️⃣ Changing Text Content</h2>
+        <p id="changingText">Original text - click a button to change me!</p>
+        <button id="textBtn1">Say Hello!</button>
+        <button id="textBtn2">Say Goodbye!</button>
+        <button id="textBtn3">Tell a Joke!</button>
+    </div>
+
+    <!-- Demo 2: Changing Styles -->
+    <div class="demo-box">
+        <h2>2️⃣ Changing Colors & Styles</h2>
+        <div id="colorBox">Click the buttons!</div>
+        <button id="redBtn">Red</button>
+        <button id="blueBtn">Blue</button>
+        <button id="greenBtn">Green</button>
+        <button id="rainbowBtn">Rainbow!</button>
+    </div>
+
+    <!-- Demo 3: User Input -->
+    <div class="demo-box">
+        <h2>3️⃣ Getting User Input</h2>
+        <input type="text" id="nameInput" placeholder="Enter your name">
+        <button id="greetBtn">Greet Me!</button>
+        <div id="textDisplay">Type your name above!</div>
+    </div>
+
+    <!-- Demo 4: Size Changes -->
+    <div class="demo-box">
+        <h2>4️⃣ Changing Sizes</h2>
+        <div id="sizeDemo">Click to make me grow!</div>
+        <button id="biggerBtn">Bigger!</button>
+        <button id="smallerBtn">Smaller!</button>
+        <button id="resetSizeBtn">Reset Size</button>
+    </div>
+
+    <!-- Demo 5: Show/Hide -->
+    <div class="demo-box">
+        <h2>5️⃣ Show and Hide Elements</h2>
+        <p id="magicText">Now you see me... 🎩✨</p>
+        <button id="toggleBtn">Toggle Visibility</button>
+        <button id="hideBtn">Hide</button>
+        <button id="showBtn">Show</button>
+    </div>
+
+    <!-- Demo 6: Mouse Events -->
+    <div class="demo-box">
+        <h2>6️⃣ Mouse Events</h2>
+        <div id="mouseBox">Hover over me!</div>
+        <p>Mouse enters: <span id="enterCount">0</span> times</p>
+        <p>Mouse leaves: <span id="leaveCount">0</span> times</p>
+    </div>
+
+    <div class="instruction">
+        <h3>💡 Check the Console!</h3>
+        <p>Open the browser console (F12) to see messages about what's happening!</p>
+    </div>
+
+    <script src="script.js"></script>
+</body>
+</html>

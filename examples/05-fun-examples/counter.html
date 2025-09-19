@@ -1,0 +1,321 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Super Counter!</title>
+    <style>
+        body {
+            font-family: 'Arial', sans-serif;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            min-height: 100vh;
+            margin: 0;
+            background: linear-gradient(135deg, #667eea, #764ba2);
+        }
+        .counter-container {
+            background: white;
+            padding: 40px;
+            border-radius: 20px;
+            box-shadow: 0 15px 35px rgba(0,0,0,0.2);
+            text-align: center;
+            min-width: 400px;
+        }
+        h1 {
+            color: #333;
+            margin-bottom: 30px;
+        }
+        #counter {
+            font-size: 72px;
+            font-weight: bold;
+            color: #667eea;
+            margin: 30px 0;
+            transition: all 0.3s;
+        }
+        #counter.negative {
+            color: #ff6b6b;
+        }
+        #counter.positive {
+            color: #32cd32;
+        }
+        #counter.zero {
+            color: #667eea;
+        }
+        button {
+            background: #667eea;
+            color: white;
+            border: none;
+            padding: 15px 25px;
+            font-size: 18px;
+            border-radius: 10px;
+            cursor: pointer;
+            margin: 5px;
+            transition: all 0.3s;
+        }
+        button:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 5px 15px rgba(0,0,0,0.3);
+        }
+        button:active {
+            transform: translateY(0);
+        }
+        .big-button {
+            width: 80px;
+            height: 80px;
+            border-radius: 50%;
+            font-size: 36px;
+        }
+        #plusBtn {
+            background: #32cd32;
+        }
+        #minusBtn {
+            background: #ff6b6b;
+        }
+        #resetBtn {
+            background: #ffd93d;
+            color: #333;
+        }
+        .modifier-buttons {
+            margin: 20px 0;
+        }
+        .modifier-buttons button {
+            background: #b4a7d6;
+        }
+        .stats {
+            margin-top: 30px;
+            padding: 20px;
+            background: #f8f9fa;
+            border-radius: 10px;
+        }
+        .stat-item {
+            display: inline-block;
+            margin: 0 15px;
+        }
+        .achievement {
+            position: fixed;
+            top: 20px;
+            right: -300px;
+            background: #ffd93d;
+            padding: 15px 25px;
+            border-radius: 10px;
+            box-shadow: 0 5px 15px rgba(0,0,0,0.3);
+            transition: right 0.5s;
+            font-weight: bold;
+        }
+        .achievement.show {
+            right: 20px;
+        }
+        input[type="number"] {
+            padding: 10px;
+            font-size: 16px;
+            border: 2px solid #667eea;
+            border-radius: 5px;
+            width: 100px;
+            margin: 0 10px;
+        }
+    </style>
+</head>
+<body>
+    <div class="counter-container">
+        <h1>🔢 Super Counter!</h1>
+
+        <div id="counter">0</div>
+
+        <div>
+            <button class="big-button" id="minusBtn">−</button>
+            <button class="big-button" id="plusBtn">+</button>
+        </div>
+
+        <div class="modifier-buttons">
+            <button id="minus10">−10</button>
+            <button id="minus5">−5</button>
+            <button id="resetBtn">Reset</button>
+            <button id="plus5">+5</button>
+            <button id="plus10">+10</button>
+        </div>
+
+        <div style="margin: 20px 0;">
+            <label>Custom Add:</label>
+            <input type="number" id="customInput" value="1">
+            <button id="customAddBtn">Add</button>
+        </div>
+
+        <div>
+            <button id="doubleBtn">×2</button>
+            <button id="halfBtn">÷2</button>
+            <button id="squareBtn">Square</button>
+            <button id="randomBtn">Random (1-100)</button>
+        </div>
+
+        <div class="stats">
+            <div class="stat-item">Highest: <strong id="highest">0</strong></div>
+            <div class="stat-item">Lowest: <strong id="lowest">0</strong></div>
+            <div class="stat-item">Clicks: <strong id="totalClicks">0</strong></div>
+        </div>
+    </div>
+
+    <div class="achievement" id="achievement"></div>
+
+    <script>
+        let count = 0;
+        let highest = 0;
+        let lowest = 0;
+        let totalClicks = 0;
+
+        let counterDisplay = document.getElementById("counter");
+        let highestDisplay = document.getElementById("highest");
+        let lowestDisplay = document.getElementById("lowest");
+        let totalClicksDisplay = document.getElementById("totalClicks");
+        let achievementDisplay = document.getElementById("achievement");
+
+        // Update counter display and color
+        function updateCounter() {
+            counterDisplay.textContent = count;
+
+            // Change color based on value
+            if (count < 0) {
+                counterDisplay.className = "negative";
+            } else if (count > 0) {
+                counterDisplay.className = "positive";
+            } else {
+                counterDisplay.className = "zero";
+            }
+
+            // Update stats
+            if (count > highest) {
+                highest = count;
+                highestDisplay.textContent = highest;
+            }
+            if (count < lowest) {
+                lowest = count;
+                lowestDisplay.textContent = lowest;
+            }
+
+            // Check for achievements
+            checkAchievements();
+
+            totalClicks++;
+            totalClicksDisplay.textContent = totalClicks;
+
+            console.log("Counter updated to:", count);
+        }
+
+        // Show achievement notification
+        function showAchievement(message) {
+            achievementDisplay.textContent = "🏆 " + message;
+            achievementDisplay.classList.add("show");
+
+            setTimeout(function() {
+                achievementDisplay.classList.remove("show");
+            }, 3000);
+        }
+
+        // Check for special achievements
+        function checkAchievements() {
+            if (count === 100) {
+                showAchievement("Century! Reached 100!");
+            } else if (count === 50) {
+                showAchievement("Halfway to 100!");
+            } else if (count === -50) {
+                showAchievement("Deep in the negatives!");
+            } else if (count === 1000) {
+                showAchievement("THOUSAND! Amazing!");
+            } else if (count === 42) {
+                showAchievement("The answer to everything!");
+            }
+        }
+
+        // Basic increment/decrement
+        document.getElementById("plusBtn").addEventListener("click", function() {
+            count++;
+            updateCounter();
+        });
+
+        document.getElementById("minusBtn").addEventListener("click", function() {
+            count--;
+            updateCounter();
+        });
+
+        // Modifier buttons
+        document.getElementById("plus5").addEventListener("click", function() {
+            count += 5;
+            updateCounter();
+        });
+
+        document.getElementById("plus10").addEventListener("click", function() {
+            count += 10;
+            updateCounter();
+        });
+
+        document.getElementById("minus5").addEventListener("click", function() {
+            count -= 5;
+            updateCounter();
+        });
+
+        document.getElementById("minus10").addEventListener("click", function() {
+            count -= 10;
+            updateCounter();
+        });
+
+        // Reset button
+        document.getElementById("resetBtn").addEventListener("click", function() {
+            count = 0;
+            updateCounter();
+            console.log("Counter reset!");
+        });
+
+        // Custom add
+        document.getElementById("customAddBtn").addEventListener("click", function() {
+            let customValue = parseInt(document.getElementById("customInput").value);
+            if (!isNaN(customValue)) {
+                count += customValue;
+                updateCounter();
+                console.log("Added custom value:", customValue);
+            }
+        });
+
+        // Math operations
+        document.getElementById("doubleBtn").addEventListener("click", function() {
+            count *= 2;
+            updateCounter();
+            console.log("Doubled!");
+        });
+
+        document.getElementById("halfBtn").addEventListener("click", function() {
+            count = Math.floor(count / 2);
+            updateCounter();
+            console.log("Halved!");
+        });
+
+        document.getElementById("squareBtn").addEventListener("click", function() {
+            count = count * count;
+            updateCounter();
+            console.log("Squared!");
+        });
+
+        document.getElementById("randomBtn").addEventListener("click", function() {
+            count = Math.floor(Math.random() * 100) + 1;
+            updateCounter();
+            console.log("Random number generated!");
+        });
+
+        // Keyboard shortcuts
+        document.addEventListener("keydown", function(event) {
+            if (event.key === "ArrowUp" || event.key === "+") {
+                count++;
+                updateCounter();
+            } else if (event.key === "ArrowDown" || event.key === "-") {
+                count--;
+                updateCounter();
+            } else if (event.key === "0") {
+                count = 0;
+                updateCounter();
+            }
+        });
+
+        console.log("Counter ready! Use buttons or arrow keys to change the count!");
+        console.log("Try reaching special numbers like 42, 50, 100 for achievements!");
+    </script>
+</body>
+</html>
